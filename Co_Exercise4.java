@@ -19,13 +19,13 @@ public class Co_Exercise4 {
     scan.close();
    }
       static double distance(double xOne, double xTwo, double yOne, double yTwo){
-       double sqX;
-       double sqY;
-       double dist;
-        sqX = Math.pow((xOne-xTwo), 2);
-        sqY = Math.pow((yOne-yTwo), 2);
-        dist = Math.sqrt(sqX + sqY);
-        return dist;
+         double sqX;
+         double sqY;
+         double dist;
+         sqX = Math.pow((xOne-xTwo), 2);
+         sqY = Math.pow((yOne-yTwo), 2);
+         dist = Math.sqrt(sqX + sqY);
+         return dist;
     }
       static double radius(double xOne, double xTwo, double yOne, double yTwo){
           double rad;
