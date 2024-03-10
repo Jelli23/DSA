@@ -1,60 +1,53 @@
-package Exers;
-
 import java.util.*;
 import java.io.*;
 
 public class Co_Mid1 {
-    public static void main(String[] args) throws FileNotFoundException {
-        Scanner in = new Scanner(new FileReader("grades.txt"));
-        int[] grade = new int[1];
-        int counter = 0;
-        Student[] list = new Student[40];
-        int[] bAverage = new int[40];
-        int cont = 0;   
-        int average = cont/list.length;
-
+    public static void main(String[] args) throws FileNotFoundException{
+        Scanner in = new Scanner(new FileReader("C:\\Co\\src\\co\\grades.txt"));
+        ArrayList<Student> list = new ArrayList<>(); 
+        int cont = 0;  
+        int hGrade = list.get(0).Grade();
+        String hName = list.get(0).Name();
+           
+        //Puts name and grade in an array
         while(in.hasNext()){
+            if (list.size() <= 40){ //Gets only a max of 40 students
             String Sname = in.nextLine();
             String grades = in.nextLine();
-            int gr = Integer.valueOf(grades);
-            list[counter] = new Student(Sname, gr);
-            counter++;
+            int gr = Integer.parseInt(grades);
+            list.add(new Student(Sname, gr));
+            }
+            else{
+                System.exit(0);
+            }
         }
         in.close();
         
-        int hGrade = list[counter].getGrade();
-        String hName = list[counter].getName();
-
-        for (int i = 0; i < list.length; i++){
-            cont = cont + list[i].getGrade();
-
-            if (list[i].getGrade() > hGrade){
-                hGrade = list[i].getGrade();
-                hName = list[i].getName();
+        //putting grades in a container ()
+        for (Student i: list){
+            cont = cont + i.Grade();
+            //Gets the highest scorer and their grade
+            if (i.Grade() > hGrade){
+                hName = i.Name();
+                hGrade = i.Grade();
             }
-            
         }
+        //Get the average
+        int average = cont/list.size();
         
-        for (int ind = 0; ind < list.length; ind++){
-            if (list[ind].getGrade() < average){
-                for (int i = 0; i < bAverage.length; i++){
-                    bAverage[i] = i;
-                }
-                
-            }
-        }
-
+        //Output
         System.out.println("Average: " + average);
         System.out.println("---------------------------");
         System.out.println("Below Average: ");
-        for (int i = 0; i < average; i++){
-            if (average < list[i].getGrade()){
-                System.out.println(list[i].getName() + "Bawi next lyf.");
+        //People below average will get a message
+        for (Student i : list){
+            if (i.Grade() < average){
+                System.out.println(i.Name() + "Bawi next lyf.");
             }
         }
         System.out.println("Highest Scorer:" + hName);
         System.out.println("Highest Score:" + hGrade);
-    }
+    }  
 }
 
 class Student {
@@ -65,13 +58,10 @@ class Student {
         this.name = name;
         this.grade = grade;
     }
-
-    public String getName(){
+    public String Name(){
         return name;
     }
-
-    public int getGrade(){
+    public int Grade(){
         return grade;
     }
-
 }
