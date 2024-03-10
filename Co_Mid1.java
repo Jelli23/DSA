@@ -3,11 +3,9 @@ import java.io.*;
 
 public class Co_Mid1 {
     public static void main(String[] args) throws FileNotFoundException{
-        Scanner in = new Scanner(new FileReader("C:\\Co\\src\\co\\grades.txt"));
+        Scanner in = new Scanner(new FileReader("grades.txt"));
         ArrayList<Student> list = new ArrayList<>(); 
         int cont = 0;  
-        int hGrade = list.get(0).Grade();
-        String hName = list.get(0).Name();
            
         //Puts name and grade in an array
         while(in.hasNext()){
@@ -23,7 +21,9 @@ public class Co_Mid1 {
         }
         in.close();
         
-        //putting grades in a container ()
+        int hGrade = list.get(0).Grade();
+        String hName = list.get(0).Name();
+        //putting grades in a container
         for (Student i: list){
             cont = cont + i.Grade();
             //Gets the highest scorer and their grade
@@ -39,15 +39,17 @@ public class Co_Mid1 {
         System.out.println("Average: " + average);
         System.out.println("---------------------------");
         System.out.println("Below Average: ");
-        //People below average will get a message
+        //People with below-average grade will get a message
         for (Student i : list){
             if (i.Grade() < average){
-                System.out.println(i.Name() + "Bawi next lyf.");
+               System.out.printf("%-18s%s\n", i.Name(), "Bawi next lyf");
             }
         }
-        System.out.println("Highest Scorer:" + hName);
-        System.out.println("Highest Score:" + hGrade);
-    }  
+        System.out.println("---------------------------");
+        System.out.println("Highest Scorer: " + hName);
+        System.out.println("Highest Score: " + hGrade);
+    }
+    
 }
 
 class Student {
@@ -58,10 +60,13 @@ class Student {
         this.name = name;
         this.grade = grade;
     }
+
     public String Name(){
         return name;
     }
+
     public int Grade(){
         return grade;
     }
+
 }
