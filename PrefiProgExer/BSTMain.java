@@ -42,18 +42,18 @@ public class BSTMain {
         System.out.println("\n\nAverage depth or path length of the tree:");
         //bst.getAverageDepth(); //Method that gets the average depth of the tree
         
-        //6
+        //6 method that checks if the tree is a complete binary tree
         System.out.println("\n\nChecks whether the tree is a complete binary:");
         if (bst.isCompleteBinaryTree(bst.root, ind, nodeCnt))
             System.out.println("The tree is a complete binary tree.");
         else
             System.out.println("The tree is not a complete binary tree.");
 
-        //7
+        //7  a method that checks is the tree is a decision tree
        System.out.println("\n\nChecks whether the tree is a decision tree:");
         if (bst.isDecisionTree(bst.root))
             System.out.print("The tree is a decision tree.");
         else
             System.out.print("The tree is not a decision tree.");
-        //Calls postorder method & gives an output
+
 }
