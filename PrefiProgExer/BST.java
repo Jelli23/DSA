@@ -15,11 +15,11 @@ public class BST {
     public BST() {
     root = null;
     }
-    
+    //Visits a node
     protected void visit(BSTNode p) {
     System.out.print(p.key + " ");
     }
-    
+    //Searches for a node
     public BSTNode search(int el) {
     return search(root, el);
     }
@@ -33,7 +33,7 @@ public class BST {
         else p = p.right;
             return null;
     }
-    
+    //Traverses through the tree in levels
     public void breadthFirst(){
         BSTNode p = root;
         Queue<BSTNode> queue = new LinkedList<>();
@@ -49,7 +49,7 @@ public class BST {
             }
         }
     }
-    
+    //Visits the node first before traversing from left and right
     public void preorder() {
         preorder(root);
     }
@@ -61,7 +61,7 @@ public class BST {
             preorder(p.right);
         }
     }
-    
+    //Traverses left, then visits, afterwards traverses right
     public void inorder() {
         inorder(root);
     }
@@ -73,6 +73,7 @@ public class BST {
             inorder(p.right);
         }
     }
+    //Traverses left and right before visiting the node
     public void postorder() {
         postorder(root);
     }
@@ -166,7 +167,7 @@ public class BST {
                 } // a parent;
             }
     }
-    
+    //Inserting a node
     public void insert(int el){         //6.23
         BSTNode p = root;
         BSTNode prev = null;
@@ -182,7 +183,7 @@ public class BST {
             prev.right = new BSTNode(el);
         else prev.left = new BSTNode(el);
     }
-    
+    //Deleting a node and merging
     public void deleteByMerging(int el){ //6.29
         BSTNode tmp;
         BSTNode node, p = root, prev = null;
@@ -218,7 +219,7 @@ public class BST {
             System.out.println("key " + el + " is not in the tree");
         else System.out.println("the tree is empty");
     }
-    
+    //Deleting the node and copying
     public void deleteByCopying(int el){ //6.32
         BSTNode node;
         BSTNode p = root, prev = null;
@@ -257,6 +258,7 @@ public class BST {
             System.out.println("key " + el + " is not in the tree");
         else System.out.println("the tree is empty");
     }
+    //Evens out the level of the tree
     public void balance (int date[], int first, int last){ //Section 6.7
         if (first <= last) {
             int middle = (first + last)/2;
@@ -265,32 +267,31 @@ public class BST {
             balance(date,middle+1,last);
         }
     }
+    //Counts all leaf in a binary tree
     public void getLeafCount() {
-        getLeafCount(root);
+        System.out.println(getLeafCount(root));
     }
     static int getLeafCount(BSTNode p){
-        Queue<BSTNode> q = new LinkedList<BSTNode>();
-        q.add(p);
+        if(p == null)
+            return 0;
+        else if (p.left != null || p.right != null)
+            return getLeafCount(p.left) + getLeafCount(p.right);
+        else
+            return 1;
         
-        int count = 0;
-        while(q != null){
-            BSTNode temp = q.poll();
-            if(temp.left == null && temp.right == null) count++;
-            if(temp.left != null) q.add(temp.left);
-            if(temp.right != null) q.add(temp.right);
-        }
-        return count;
     }
+    //Finds the height of the tree
     public void findHeight(){
-        findHeight(root);
+        System.out.println(findHeight(root));
     }
     static int findHeight(BSTNode p){
         if (p == null)
             return -1;
     return 1 + Math.max(findHeight(p.left), findHeight(p.right));      
     }
+    //Counts the non-terminal nodes
     public void nonLeaf(){
-        nonLeaf(root);
+        System.out.println(nonLeaf(root));
     }
     static int nonLeaf(BSTNode p){
         // If root is null then it is not a non-terminal node
@@ -298,14 +299,16 @@ public class BST {
             return 0;
     return 1 + nonLeaf(p.left) + nonLeaf(p.right); // If root is not null & a child is not null
     }
+    //Gets the internal path length of the tree
     public void IPL(){
-        IPL(root, 0);
+        System.out.println(IPL(root, 0));
     }
     static int IPL(BSTNode p, int depth){
         if (p == null)
             return 0;     
     return depth + IPL(p.left, depth + 1) + IPL(p.right, depth + 1);    
     }
+    //Gets the average depth of the tree
     public void getAverageDepth(){
         int[] temp = getAverageDepth(root,0,0);
         int totalDepth = temp[0];
@@ -322,23 +325,37 @@ public class BST {
     static int[] getAverageDepth(BSTNode p, int depth, int cnt){
         if (p == null)
             return new int[]{0,0};
-    int[] left = getAverageDepth(p.left, depth + 1, cnt);
-    int[] right = getAverageDepth(p.right, depth + 1, cnt);
-    int totalDepth = depth + left[0] + right[0];
-    int nodeCnt = 1 + left[1] + right[1];
+        int[] left = getAverageDepth(p.left, depth + 1, cnt);
+        int[] right = getAverageDepth(p.right, depth + 1, cnt);
+        int totalDepth = depth + left[0] + right[0];
+        int nodeCnt = 1 + left[1] + right[1];
     
     return new int[]{totalDepth, nodeCnt};
     }
+    //Counts the number of nodes
     protected static int countNumNode(BSTNode p){
         if (p == null)
             return 0;
         return(1 + countNumNode(p.left)+countNumNode(p.right));
     }
-    protected static boolean isCompleteBinaryTree(BSTNode p, int ind, int numNode){
-        if (p == null)
+    //Checks if it is a complete binary tree
+    protected static boolean isCompleteBinaryTree(BSTNode p, int index, int numNode){
+        if (p.left == null && p.right == null)
             return true;
-        if (ind >= numNode)
+        if (index >= numNode)
             return false;
-    return (isCompleteBinaryTree(p.left, 2* ind + 1, numNode) && isCompleteBinaryTree(p.right, 2 * ind + 2, numNode));
+    return (isCompleteBinaryTree(p.left, 2 * index + 1, numNode) && isCompleteBinaryTree(p.right, 2 * index + 2, numNode));
+    }
+    //Checks if it is a decision tree
+    protected static boolean isDecisionTree(BSTNode p){
+        if (p.left != null && p.right != null)
+            return true;
+        if (p.left == null && p.right == null)
+            return true;
+        if (p.left == null && p.right !=null)
+            return false;
+        if (p.left != null && p.right ==null)
+            return false;
+    return (isDecisionTree(p.left)&&(isDecisionTree(p.right)));
     }
 }
