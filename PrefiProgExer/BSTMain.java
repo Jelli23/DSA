@@ -50,7 +50,10 @@ public class BSTMain {
             System.out.println("The tree is not a complete binary tree.");
 
         //7
-        System.out.println("\n\nChecks whether the tree is a decision tree:");
-        //bst.postorder(); //Calls postorder method & gives an output
-    }
+       System.out.println("\n\nChecks whether the tree is a decision tree:");
+        if (bst.isDecisionTree(bst.root))
+            System.out.print("The tree is a decision tree.");
+        else
+            System.out.print("The tree is not a decision tree.");
+        //Calls postorder method & gives an output
 }
